@@ -26,20 +26,27 @@ class MyHomePage extends StatefulWidget {
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateMixin {
+class _MyHomePageState extends State<MyHomePage>
+    with SingleTickerProviderStateMixin {
   double w = 100;
   double h = 100;
   double op = 0;
   double fz = 14;
   Color? color = Colors.red;
-  double end=50;
-  AlignmentGeometry alignment= Alignment.topLeft;
-late AnimationController animatedContainer;
-@override
+  double end = 50;
+  AlignmentGeometry alignment = Alignment.topLeft;
+  late AnimationController animatedContainer;
+
+  @override
   void initState() {
     super.initState();
-animatedContainer=AnimationController(vsync: this,duration: const Duration(seconds: 3),lowerBound: 100,upperBound: 300);
+    animatedContainer = AnimationController(
+        vsync: this,
+        duration: const Duration(seconds: 3),
+        lowerBound: 10,
+        upperBound: end);
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -47,11 +54,46 @@ animatedContainer=AnimationController(vsync: this,duration: const Duration(secon
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(widget.title),
       ),
-      body: ,
+      body: AnimatedBuilder(
+        animation: animatedContainer,
+        builder: (context, child) {
+          return Center(
+            child: Column(
+              children: [
+                Text(
+                  "Text",
+                  style: TextStyle(fontSize: animatedContainer.value),
+                ),
+                Wrap(
+                  children: [
+                    ElevatedButton(onPressed: (){
+                      animatedContainer.forward();
+                    }, child: Text("forward")),
+                    ElevatedButton(onPressed: (){
+                      animatedContainer.reverse();
+                    }, child: Text("reverse")),
+                    ElevatedButton(onPressed: (){
+                      animatedContainer.reset();
+                    }, child: Text("reset")),
+                    ElevatedButton(onPressed: (){
+                      animatedContainer.repeat();
+                    }, child: Text("repeat")),
+                    ElevatedButton(onPressed: (){
+                      animatedContainer.stop();
+                    }, child: Text("stop")),
+                  ],
+                ),
+
+              ],
+            ),
+          );
+        },
+      ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           setState(() {
-            end=end==50?100:50;
+            end = end == 50 ? 100 : 50;
+            animatedContainer.forward();
             // w = double.infinity;
             // h = 50;
             // op = 1;
