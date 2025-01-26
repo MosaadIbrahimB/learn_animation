@@ -66,24 +66,44 @@ class _MyHomePageState extends State<MyHomePage>
                 ),
                 Wrap(
                   children: [
-                    ElevatedButton(onPressed: (){
-                      animatedContainer.forward();
-                    }, child: Text("forward")),
-                    ElevatedButton(onPressed: (){
-                      animatedContainer.reverse();
-                    }, child: Text("reverse")),
-                    ElevatedButton(onPressed: (){
-                      animatedContainer.reset();
-                    }, child: Text("reset")),
-                    ElevatedButton(onPressed: (){
-                      animatedContainer.repeat();
-                    }, child: Text("repeat")),
-                    ElevatedButton(onPressed: (){
-                      animatedContainer.stop();
-                    }, child: Text("stop")),
+                    ElevatedButton(
+                        onPressed: () {
+                          animatedContainer.forward();
+                        },
+                        child: Text("forward")),
+                    ElevatedButton(
+                        onPressed: () {
+                          animatedContainer.reverse();
+                        },
+                        child: Text("reverse")),
+                    ElevatedButton(
+                        onPressed: () {
+                          animatedContainer.reset();
+                        },
+                        child: Text("reset")),
+                    ElevatedButton(
+                        onPressed: () {
+                          animatedContainer.repeat();
+                        },
+                        child: Text("repeat")),
+                    ElevatedButton(
+                        onPressed: () {
+                          animatedContainer.stop();
+                        },
+                        child: Text("stop")),
                   ],
                 ),
-
+                TweenAnimationBuilder(
+                  tween: Tween<double>(end: 300, begin: 100),
+                  duration: const Duration(seconds: 2),
+                  builder: (context, value, child) => Center(
+                    child: Container(
+                      width: value,
+                      height: value,
+                      color: Colors.red,
+                    ),
+                  ),
+                )
               ],
             ),
           );
